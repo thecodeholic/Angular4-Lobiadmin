@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
-import {BsDropdownModule} from 'ng2-bootstrap/dropdown';
+import {BsDropdownModule} from 'ng2-bootstrap';
 
 @NgModule({
   declarations: [

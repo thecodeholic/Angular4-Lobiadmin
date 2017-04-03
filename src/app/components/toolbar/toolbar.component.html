@@ -24,12 +24,12 @@
   <div class="navbar-items">
     <!--User avatar dropdown-->
     <ul class="nav navbar-nav navbar-right user-actions">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <li class="dropdown" dropdown>
+        <a href="#" class="dropdown-toggle" dropdownToggle>
           <img class="user-avatar" src="assets/img/users/me-160.jpg" alt="..."/>
           <b class="caret"></b>
         </a>
-        <ul class="dropdown-menu">
+        <ul *dropdownMenu class="dropdown-menu">
           <li><a href="#profile"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Profile</a></li>
           <li><a href="#timeline"><i class="fa fa-code-fork"></i> &nbsp;&nbsp;Timeline</a></li>
           <li><a href="#lobimail"><span class="glyphicon glyphicon-envelope"></span> &nbsp;&nbsp;Messages</a></li>
@@ -44,13 +44,13 @@
   <div class="navbar-items-2">
     <!--Choose languages dropdown-->
     <ul class="nav navbar-nav">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <li class="dropdown" dropdown>
+        <a href="#" class="dropdown-toggle" dropdownToggle>
           <img src="assets/img/flags/en.png" alt="en"/>
           <span class="visible-lg-inline-block visible-md-inline-block visible-sm-inline-block">english</span>
           <b class="caret"></b>
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" *dropdownMenu>
           <li class="active">
             <a href="#">
               <img src="assets/img/flags/en.png" alt="en"/>
@@ -109,12 +109,12 @@
           <span class="glyphicon glyphicon-fullscreen"></span>
         </a>
       </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <li class="dropdown" dropdown>
+        <a href="#" class="dropdown-toggle" dropdownToggle>
           <span class="glyphicon glyphicon-envelope"></span>
           <span class="badge badge-danger badge-xs">3</span>
         </a>
-        <div class="dropdown-menu dropdown-notifications notification-messages border-1 animated-fast flipInX">
+        <div *dropdownMenu class="dropdown-menu dropdown-notifications notification-messages border-1 animated-fast flipInX">
           <div class="notifications-heading border-bottom-1 bg-white">
             Messages
             <div class="header-actions pull-right">
@@ -200,12 +200,12 @@
           </div>
         </div>
       </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <li class="dropdown" dropdown>
+        <a href="#" class="dropdown-toggle" dropdownToggle>
           <span class="fa fa-globe"></span>
           <span class="badge badge-danger badge-xs">9</span>
         </a>
-        <div class="dropdown-menu dropdown-notifications notification-news border-1 animated-fast flipInX">
+        <div *dropdownMenu class="dropdown-menu dropdown-notifications notification-news border-1 animated-fast flipInX">
           <div class="notifications-heading border-bottom-1 bg-white">
             Notifications
           </div>
@@ -283,12 +283,12 @@
           </div>
         </div>
       </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <li class="dropdown" dropdown>
+        <a href="#" class="dropdown-toggle" dropdownToggle>
           <span class="fa fa-tasks"></span>
           <span class="badge badge-danger badge-xs">8</span>
         </a>
-        <div class="dropdown-menu dropdown-notifications notification-tasks border-1 animated-fast flipInX">
+        <div *dropdownMenu class="dropdown-menu dropdown-notifications notification-tasks border-1 animated-fast flipInX">
           <div class="notifications-heading border-bottom-1 bg-white">
             Active tasks
           </div>
