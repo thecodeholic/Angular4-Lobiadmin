@@ -6,8 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-
-import {BsDropdownModule} from 'ng2-bootstrap';
+import {BsDropdownModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
