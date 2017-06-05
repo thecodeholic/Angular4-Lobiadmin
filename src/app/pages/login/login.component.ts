@@ -17,7 +17,7 @@ export class Login {
   public errors = [];
   public identity: AbstractControl;
   public password: AbstractControl;
-  public submitted: boolean = false;
+  public submitted = false;
 
   constructor(fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) {
     this.form = fb.group({
@@ -35,9 +35,9 @@ export class Login {
       console.log('submit');
        this.authenticationService.login(values).subscribe(
            data => {
-             if(data === true){
+             if (data === true) {
                this.router.navigate(['/pages']);
-             }else{
+             }else {
                 this.errors = data;
              }
            },
