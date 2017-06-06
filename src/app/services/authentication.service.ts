@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import 'rxjs/add/operator/map';
-import {AppSettings} from '../app.settings';
+import {AppConfig} from '../app.config';
 import {HttpService} from './http.service';
 @Injectable()
 export class AuthenticationService {
@@ -9,7 +9,7 @@ export class AuthenticationService {
     }
 
     login(data) {
-        return this.http.post(AppSettings.getUrl() + '/api/v1/guest/login', data)
+        return this.http.post(AppConfig.getApiUrl('/user/guest/login') , data)
             .map((response: Response) => {
                 const res = response.json();
                 if (res.success) {
@@ -22,14 +22,14 @@ export class AuthenticationService {
     }
 
     changePassword(data) {
-        return this.http.post(AppSettings.getUrl() + '/api/v1/user/change-password', data)
+        return this.http.post(AppConfig.getApiUrl('/user/change-password') , data)
             .map((response: Response) => {
                 return response.json();
             });
     }
 
     logout() {
-        return this.http.post(AppSettings.getUrl() + '/api/v1/user/logout', {})
+        return this.http.post(AppConfig.getApiUrl('/user/logout') , {})
             .map((response: Response) => {
                 localStorage.removeItem('currentUser');
                 return response;
@@ -37,7 +37,7 @@ export class AuthenticationService {
     }
 
     RequestPasswordReset(data) {
-        return this.http.post(AppSettings.getUrl() + '/api/v1/guest/login', data)
+        return this.http.post(AppConfig.getApiUrl('/user/guest/login') , data)
             .map((response: Response) => {
                 const user = response.json();
                 if (user && user.accessToken) {

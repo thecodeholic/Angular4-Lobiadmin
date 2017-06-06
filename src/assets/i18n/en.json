@@ -1,0 +1,15 @@
+{
+  "DASHBOARD": "Dashboard (en)",
+  "LOGIN": {
+    "LOGIN_TO_YOUR_ACCOUNT": "Login to your account",
+    "IDENTITY": "Username or email",
+    "PLEASE_ENTER_IDENTITY": "Please enter username or email",
+    "PLEASE_ENTER_PASSWORD": "Please enter password",
+    "PASSWORD": "Password",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "NEW_USER": "New user",
+    "SIGNUP": "Sign up",
+    "LOGIN": "Login"
+  }
+}

@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 
 @Component({
-  selector: 'pages',
+  selector: 'app-pages',
   styles: [],
-  template: `      
-    <ba-back-top position="200"></ba-back-top>
-    `
+  template: `<h1>pages module</h1>`
 })
 export class PagesComponent {
 }

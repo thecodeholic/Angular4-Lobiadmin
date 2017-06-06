@@ -1,41 +1,69 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {Http, HttpModule, RequestOptions, XHRBackend} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {CoreModule} from './core/core.module';
-import {Dashboard1Module} from './main/dashboards/dashboard1/dashboard1.module';
-import {Dashboard2Module} from './main/dashboards/dashboard2/dashboard2.module';
-import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {MainModule} from './main/main.module';
 import {AuthModule} from './auth/auth.module';
+import {HttpService} from './services/http.service';
+import {PagesModule} from './pages/pages.module';
+import {PageNotFoundComponent} from './main/page-not-found/page-not-found.component';
+import {APP_BASE_HREF} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {AuthGuard} from './providers/guards/auth.guard';
+import {IsGuest} from './providers/guards/is.guest';
+
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
     AppComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [Http]
+      }
+    }),
     BsDropdownModule.forRoot(),
-
     CoreModule,
-    AppRoutingModule,
     MainModule,
     AuthModule,
-
-    Dashboard1Module,
-    Dashboard2Module
+    PagesModule,
+    RouterModule,
+    AppRoutingModule,
   ],
   providers: [
+    {
+      provide: HttpService,
+      useFactory: useFactory,
+      deps: [XHRBackend, RequestOptions]
+    },
+    {provide: APP_BASE_HREF, useValue : '/' },
+    AuthGuard,
+    IsGuest
   ],
   bootstrap: [AppComponent],
-  exports: []
+  exports: [TranslateModule]
 })
 export class AppModule {
+}
+
+export function useFactory(backend: XHRBackend, options: RequestOptions) {
+  return new HttpService(backend, options);
+}
+
+export function HttpLoaderFactory(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

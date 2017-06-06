@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import {MainComponent} from './main.component';
 import {NavigationComponent} from '../navigation/navigation.component';
 import {ToolbarComponent} from '../toolbar/toolbar.component';
-import {Dashboard1Module} from './dashboards/dashboard1/dashboard1.module';
+import {MainRoutingModule} from './main-routing.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
-    Dashboard1Module
+    MainRoutingModule,
   ],
-  declarations: [MainComponent, NavigationComponent, ToolbarComponent]
+  declarations: [MainComponent, NavigationComponent, ToolbarComponent],
 })
 export class MainModule { }
