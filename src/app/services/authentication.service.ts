@@ -21,6 +21,19 @@ export class AuthenticationService {
             });
     }
 
+    register(data) {
+        return this.http.post(AppConfig.getApiUrl('/user/guest/login') , data)
+            .map((response: Response) => {
+                const res = response.json();
+                if (res.success) {
+                    localStorage.setItem('currentUser', JSON.stringify(res));
+                    return true;
+                }else {
+                   return res.errors;
+                }
+            });
+    }
+
     changePassword(data) {
         return this.http.post(AppConfig.getApiUrl('/user/change-password') , data)
             .map((response: Response) => {
