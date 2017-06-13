@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {Http, HttpModule, RequestOptions, XHRBackend} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {BsDropdownModule} from 'ngx-bootstrap';
+import {BsDropdownModule, ModalBackdropComponent, ModalModule} from 'ngx-bootstrap';
 import {CoreModule} from './core/core.module';
 import {AppRoutingModule} from './app-routing.module';
 import {MainModule} from './main/main.module';
@@ -20,10 +20,11 @@ import {IsGuest} from './providers/guards/is.guest';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +43,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     AuthModule,
     PagesModule,
     RouterModule,
+    ModalModule,
     AppRoutingModule,
   ],
   providers: [
@@ -55,7 +57,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     IsGuest
   ],
   bootstrap: [AppComponent],
-  exports: [TranslateModule]
+  exports: [TranslateModule],
+  entryComponents: [ModalBackdropComponent]
 })
 export class AppModule {
 }

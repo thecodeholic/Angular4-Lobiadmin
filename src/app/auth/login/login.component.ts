@@ -15,7 +15,7 @@ import {EmailValidator} from '../../validators/email.validator';
 })
 export class LoginComponent {
 
-  formType = 'signup';
+  formType = 'login';
 
   // login
   public form: FormGroup;

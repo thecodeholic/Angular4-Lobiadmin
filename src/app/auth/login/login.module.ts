@@ -5,7 +5,13 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {Http} from '@angular/http';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: Http) {
+  return new TranslateHttpLoader(http, '/src/app/auth/login/i18n/', '.json');
+}
 
 @NgModule({
   imports: [
@@ -13,7 +19,13 @@ import {TranslateModule} from '@ngx-translate/core';
     LoginRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    TranslateModule
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [Http]
+      }
+    })
   ],
   declarations: [LoginComponent],
   providers: [
