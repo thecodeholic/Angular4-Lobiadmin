@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild, NgModule, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewChild, NgModule, ViewContainerRef, EventEmitter, Output} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {CalendarService} from './calendar.service';
 import * as moment from 'moment';
 import {EventDialogComponent} from './dialogs/event-dialog/event-dialog.component';
+import {DragDialogComponent} from './dialogs/drag-dialog/drag-dialog.component';
 
 
 @Component({
@@ -10,13 +11,15 @@ import {EventDialogComponent} from './dialogs/event-dialog/event-dialog.componen
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.less']
 })
+
 export class CalendarComponent implements OnInit {
   @ViewChild('eventDialog') eventDialog: EventDialogComponent;
+  @ViewChild('dragDialog') dragDialog: DragDialogComponent;
   // Data
   calendarOptions: Object;
   availableViews = ['day', 'week', 'month'];
   currentView = 'month';
-  dragMessage = '';
+  dragStartDate = '';
   public calendarView = null;
   calendar = null;
   currentMonthShort = null;
@@ -94,8 +97,8 @@ export class CalendarComponent implements OnInit {
 
   addNewEvent(startDate, endDate) {
     if (!startDate) {
-        startDate = moment();
-        endDate = moment().add(1, 'd');
+      startDate = moment();
+      endDate = moment().add(1, 'd');
     }
     this.showEventDialog({start: startDate, end: endDate});
   }
@@ -107,49 +110,21 @@ export class CalendarComponent implements OnInit {
   private showEventDialog(event) {
     console.log(event);
     this.eventDialog.open(event);
-    // $uibModal.open({
-    //   templateUrl: 'app/main/apps/calendar/dialogs/event-dialog/event-dialog.html',
-    //   controller: 'EventDialogController',
-    //   controllerAs: 'vm',
-    //   size: 'md',
-    //   resolve: {
-    //     Event: event
-    //   }
-    // }).result.then(function (response) {
-    //   switch (response.action) {
-    //     case 'add':
-    //       vm.events[0].push(response.event);
-    //       break;
-    //     case 'edit':
-    //       for (var i = 0; i < vm.events[0].length; i++) {
-    //         if (response.event.id === vm.events[0][i].id) {
-    //           vm.events[0][i] = angular.extend(vm.events[0][i], response.event);
-    //           break;
-    //         }
-    //       }
-    //       break;
-    //     case 'delete':
-    //       for (var i = 0; i < vm.events[0].length; i++) {
-    //         if (response.event.id === vm.events[0][i].id) {
-    //           vm.events[0].splice(i, 1);
-    //           break;
-    //         }
-    //       }
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // });
   }
 
   catchDragStart(event, delta) {
     const me = this;
+    console.log('start drag');
+    this.dragStartDate = event.start.format();
     // $translate(['CALENDAR.EVENT_MOVE_MSG_1', 'CALENDAR.EVENT_MOVE_MSG_2']).then(function (translations) {
-    // me.dragMessage += translations['CALENDAR.EVENT_MOVE_MSG_1'] + event.title + translations['CALENDAR.EVENT_MOVE_MSG_2'] + event.start.format();
+    // me.dragMessage += translations['CALENDAR.EVENT_MOVE_MSG_1']
+    // + event.title + translations['CALENDAR.EVENT_MOVE_MSG_2'] + event.start.format();
     // });
   }
 
   showDragDialog(event, delta, revertFunc) {
+    console.log('drag');
+    this.dragDialog.open(event, this.dragStartDate);
     // $translate(['CALENDAR.EVENT_MOVE_MSG_3']).then(function (translations) {
     //
     //   console.log(revertFunc);
@@ -171,6 +146,10 @@ export class CalendarComponent implements OnInit {
     //     revertFunc();
     //   });
     // });
+  }
+
+  onClosed(event) {
+    console.log(event);
   }
 
 

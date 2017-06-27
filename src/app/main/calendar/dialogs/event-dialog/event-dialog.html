@@ -21,8 +21,7 @@
 
                     <div class="form-group">
                         <label class="control-label">{{'CALENDAR.EVENT_DATE' | translate}}</label>
-                        <input date-range-picker type="text" name="date-period" options="options"
-                               class="form-control date-picker" [(ngModel)]="eventDate">
+                        <input class="orm-control date-picker" type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event)" />
                         <label class="checkbox lobicheck">
                             <input type="checkbox" name="allday" [(ngModel)]="event.allDay"><i></i> {{'CALENDAR.ALL_DAY' |
                             translate}}
@@ -34,7 +33,7 @@
                         <div class="btn-group btn-group-justified btn-group-event-style" data-toggle="buttons">
                             <label *ngFor="let style of eventStyles" class="btn {{style}} text-white">
                                 <input type="radio" [(ngModel)]="event.className[0]" value="{{style}}" name="event-style">
-                                <i class="fa fa-check" [hidden]="event.className[0] !== style"></i>
+                                <i class="fa fa-check" [hidden]="!(event.className[0] == style)"></i>
                             </label>
                         </div>
                     </div>

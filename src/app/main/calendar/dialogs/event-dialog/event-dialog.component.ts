@@ -1,12 +1,13 @@
 /**
  * Created by gio on 6/12/17.
  */
-import {TranslateService} from '@ngx-translate/core';
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DaterangePickerComponent} from 'ng2-daterangepicker';
 
-declare var Lobibox: any;
+declare const Lobibox: any;
+
 
 @Component({
   selector: 'app-event-modal',
@@ -15,6 +16,11 @@ declare var Lobibox: any;
 })
 export class EventDialogComponent {
   @ViewChild('childModal') public childModal: ModalDirective;
+  @ViewChild(DaterangePickerComponent)
+  private picker: DaterangePickerComponent;
+
+  @Output()
+  closed: EventEmitter<object> = new EventEmitter();
 
   // form
   public Event: any;
@@ -30,14 +36,28 @@ export class EventDialogComponent {
     title: '',
     files: []
   };
-  options: object;
+
+  public selectedDate(value: any) {
+    this.eventDate.startDate = value.start;
+    this.eventDate.endDate = value.end;
+  }
 
   constructor(fb: FormBuilder) {
   }
 
   init(Event) {
     this.isEdit = Event && !!Event.title;
-    this.eventStyles = ['event-primary', 'event-success', 'event-danger', 'event-info', 'event-warning', 'event-gray', 'event-cyan', 'event-purple', 'event-pink'];
+    this.eventStyles = [
+      'event-primary',
+      'event-success',
+      'event-danger',
+      'event-info',
+      'event-warning',
+      'event-gray',
+      'event-cyan',
+      'event-purple',
+      'event-pink'
+    ];
     this.eventDate = {startDate: Event.start, endDate: Event.end};
     this.event = this.isEdit ? Event : {
       id: Math.round(Math.random() * 1000000),
@@ -47,34 +67,36 @@ export class EventDialogComponent {
       allDay: false,
       title: ''
     };
+    this.picker.datePicker.timePicker = true;
+    this.picker.datePicker.autoUpdateInput = true;
+    this.picker.datePicker.locale.format = 'YYYY-MM-DD h:mm A';
     this.event.files = this.event.files || [];
-    this.options = {
-      autoUpdateInput: true,
-      timePicker: true,
-      locale: {format: 'YYYY-MM-DD h:mm A'}
-    };
 
     console.log('event-dialog init');
   }
 
   open(event) {
     this.init(event);
+    this.picker.datePicker.setStartDate(this.eventDate.startDate);
+    this.picker.datePicker.setEndDate(this.eventDate.endDate);
+
     this.childModal.show();
     console.log('open');
+    return this.childModal;
   }
 
-  close() {
+  close(action) {
     this.childModal.hide();
-    console.log('close');
+    this.closed.emit({event: this.event, action: action});
   }
 
   ok() {
-    console.log(this.event);
-    this.childModal.hide();
+    // console.log(this.event);
+    this.close('ok');
   }
 
   cancel() {
-    this.close();
+    this.close('cancel');
   }
 
   addAttachments(event) {
@@ -90,10 +112,8 @@ export class EventDialogComponent {
   }
 
   deleteEvent() {
-    // @todo This code should be tested
-    // vm.event.$delete();
     const me = this;
-    console.log(Lobibox);
+    // console.log(Lobibox);
     Lobibox.confirm({
       title: 'Deleting event: ' + me.event.title,
       msg: 'Are you sure you want to delete this event?',

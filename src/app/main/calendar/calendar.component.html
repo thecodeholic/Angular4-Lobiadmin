@@ -41,4 +41,5 @@
     </div>
   </div>
 </div>
-<app-event-modal  #eventDialog></app-event-modal>
+<app-event-modal  #eventDialog (closed)="onClosed($event)"></app-event-modal>
+<app-drag-modal  #dragDialog></app-drag-modal>

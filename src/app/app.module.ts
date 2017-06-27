@@ -24,7 +24,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +44,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     PagesModule,
     RouterModule,
     ModalModule,
+
     AppRoutingModule,
   ],
   providers: [

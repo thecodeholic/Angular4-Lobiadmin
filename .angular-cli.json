@@ -23,7 +23,11 @@
         "styles.less",
         "../node_modules/lobibox/css/lobibox.css"
       ],
-      "scripts": ["../node_modules/jquery/dist/jquery.min.js", "../node_modules/lobibox/js/lobibox.js"],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/lobibox/js/lobibox.js",
+        "../node_modules/bootstrap-daterangepicker/daterangepicker.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
