@@ -24,10 +24,11 @@ export class EventDialogComponent {
 
   // form
   public Event: any;
+  public currentAction: string;
   isEdit: boolean;
   eventStyles = [];
   eventDate: any;
-  event = {
+  public event = {
     id: null,
     className: ['event-primary'],
     start: null,
@@ -45,7 +46,7 @@ export class EventDialogComponent {
   constructor(fb: FormBuilder) {
   }
 
-  init(Event) {
+  init(Event, action) {
     this.isEdit = Event && !!Event.title;
     this.eventStyles = [
       'event-primary',
@@ -70,33 +71,31 @@ export class EventDialogComponent {
     this.picker.datePicker.timePicker = true;
     this.picker.datePicker.autoUpdateInput = true;
     this.picker.datePicker.locale.format = 'YYYY-MM-DD h:mm A';
+    this.picker.datePicker.setStartDate(this.eventDate.startDate);
+    this.picker.datePicker.setEndDate(this.eventDate.endDate);
     this.event.files = this.event.files || [];
 
+    this.currentAction = action;
     console.log('event-dialog init');
   }
 
-  open(event) {
-    this.init(event);
-    this.picker.datePicker.setStartDate(this.eventDate.startDate);
-    this.picker.datePicker.setEndDate(this.eventDate.endDate);
-
+  open(event, action) {
+    this.init(event, action);
     this.childModal.show();
     console.log('open');
-    return this.childModal;
   }
 
-  close(action) {
+  close(action = this.currentAction) {
     this.childModal.hide();
-    this.closed.emit({event: this.event, action: action});
+    this.closed.emit({event: this.event, action: action, dialog: 'event'});
   }
 
   ok() {
-    // console.log(this.event);
-    this.close('ok');
+    this.close();
   }
 
   cancel() {
-    this.close('cancel');
+    this.close();
   }
 
   addAttachments(event) {
@@ -119,10 +118,7 @@ export class EventDialogComponent {
       msg: 'Are you sure you want to delete this event?',
       callback: function (lobibox, btn) {
         if (btn === 'yes') {
-          // $uibModalInstance.close({
-          //   action: 'delete',
-          //   event: vm.event
-          // });
+          me.close('delete');
         }
       }
     });

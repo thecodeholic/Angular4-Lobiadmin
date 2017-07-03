@@ -1,16 +1,19 @@
 [
   {
+    "id": 1,
     "title": "All Day Event",
     "start": "2016-05-01",
     "end": "2017-05-01"
   },
   {
+    "id": 2,
     "title": "Long Event",
     "start": "2017-05-07",
     "end": "2017-05-10",
     "className": "event-success"
   },
   {
+    "id": 3,
     "title": "Conference",
     "start": "2017-05-11",
     "end": "2017-05-13",
@@ -18,36 +21,43 @@
     "className": "event-purple"
   },
   {
+    "id": 4,
     "title": "Meeting",
     "start": "2017-05-12T10:30:00",
     "end": "2017-05-12T12:30:00",
     "className": "event-info"
   },
   {
+    "id": 5,
     "title": "Lunch",
     "start": "2017-05-8T12:00:00",
     "description": "The lunch will be at corner cafe"
   },
   {
+    "id": 6,
     "title": "Meeting",
     "start": "2017-05-26T14:30:00",
     "className": "event-purple"
   },
   {
+    "id": 7,
     "title": "Happy Hour",
     "start": "2017-05-11T17:30:00"
   },
   {
+    "id": 8,
     "title": "Dinner",
     "start": "2017-05-23T20:00:00",
     "className": "event-warning"
   },
   {
+    "id": 9,
     "title": "Birthday Party",
     "start": "2017-05-13T07:00:00",
     "className": "event-warning"
   },
   {
+    "id": 10,
     "title": "Click for Google",
     "url": "http://google.com/",
     "start": "2017-05-28"

@@ -1,4 +1,37 @@
 //Author      : @arboshiki
+//LOOP
+@primary : #002a51;
+@success : #28c97b;
+@danger : #d6451d;
+@info : #3989c6;
+@warning : #e2993f;
+@gray : #555555;
+@cyan : #35a5ad;
+@purple : #8328b7;
+@pink : #d125ba;
+
+@colors : primary, success, danger, info, warning, gray, cyan, purple, pink;
+.event-{
+  .for(@colors, {
+    &@{value} {
+      background-color: @@value;
+      border-color: darken(@@value, 5%);
+    }
+  });
+}
+
+
+// LOOPING MIXIN
+.for(@list, @code) {
+  & {
+    .loop(@i:1) when (@i =< length(@list)) {
+      @value: extract(@list, @i);
+      @code();
+      .loop(@i + 1);
+    }
+    .loop();
+  }
+}
 
 .fc-event {
   border-radius: 0;
