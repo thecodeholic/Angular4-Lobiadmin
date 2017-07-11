@@ -12,10 +12,9 @@
                 <form (ngSubmit)="login(form.value)" name="eventForm">
                     <div class="form-group" ngClass="{'has-error': eventForm.title.touched && eventForm.title.invalid}">
                         <label class="control-label">{{'CALENDAR.EVENT_TITLE' | translate}}</label>
-                        <input [(ngModel)]="event.title" type="text" class="form-control" required [ngModelOptions]="{standalone: true}">
-                        <div class="help-block" ngMessages="eventForm.title.$touched && eventForm.title.$error" role="alert"
-                        multiple>
-                        <p ng-message="required">{{'CALENDAR.EVENT_REQUIRED_FIELD' | translate}}</p>
+                        <input name="title" [(ngModel)]="event.title" type="text" class="form-control" required [ngModelOptions]="{standalone: true}">
+                        <div class="alert alert-danger" *ngIf="event.title === ''">
+                          {{'CALENDAR.EVENT_REQUIRED_FIELD' | translate}}
                         </div>
                     </div>
 
@@ -67,7 +66,7 @@
                     <i class="fa fa-trash"></i> {{'CALENDAR.EVENT_DELETE' | translate}}
                 </button>
                 <button class="btn btn-pretty btn-primary" type="button" (click)="ok()"
-                        [disabled]="false">{{'CALENDAR.EVENT_OK' | translate}}
+                        [disabled]="event.title === ''">{{'CALENDAR.EVENT_OK' | translate}}
                 </button>
                 <button class="btn btn-pretty btn-default" type="button" (click)="cancel()">
                     {{'CALENDAR.EVENT_CANCEL' | translate}}

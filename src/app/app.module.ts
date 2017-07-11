@@ -40,7 +40,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     BsDropdownModule.forRoot(),
     CoreModule,
     MainModule,
-    AuthModule,
+    // AuthModule,
     PagesModule,
     RouterModule,
     ModalModule,
@@ -54,7 +54,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
       deps: [XHRBackend, RequestOptions]
     },
     {provide: APP_BASE_HREF, useValue : '/' },
-    AuthGuard,
+    // AuthGuard,
     IsGuest
   ],
   bootstrap: [AppComponent],

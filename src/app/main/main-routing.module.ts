@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: 'main',
     component: MainComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'dashboard1', pathMatch: 'full' },
       { path: 'dashboard1', loadChildren: 'app/main/dashboards/dashboard1/dashboard1.module#Dashboard1Module' },

@@ -89,8 +89,8 @@ export class EventDialogComponent {
   }
 
   close(action = this.currentAction) {
-    this.childModal.hide();
-    this.closed.emit({event: this.event, action: action, dialog: 'event'});
+      this.childModal.hide();
+      this.closed.emit({event: this.event, action: action, dialog: 'event'});
   }
 
   ok() {
@@ -98,7 +98,7 @@ export class EventDialogComponent {
   }
 
   cancel() {
-    this.close();
+    this.childModal.hide();
   }
 
   addAttachments(event) {
