@@ -41,6 +41,9 @@ export class EventDialogComponent {
   public selectedDate(value: any) {
     this.eventDate.startDate = value.start;
     this.eventDate.endDate = value.end;
+    this.event.start = value.start;
+    this.event.end = value.end;
+    console.log(this.event);
   }
 
   constructor(fb: FormBuilder) {
