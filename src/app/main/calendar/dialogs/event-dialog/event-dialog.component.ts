@@ -23,6 +23,7 @@ export class EventDialogComponent {
   closed: EventEmitter<object> = new EventEmitter();
 
   // form
+  public titleTouched: boolean;
   public Event: any;
   public currentAction: string;
   isEdit: boolean;
@@ -50,6 +51,7 @@ export class EventDialogComponent {
   }
 
   init(Event, action) {
+    this.titleTouched = false;
     this.isEdit = Event && !!Event.title;
     this.eventStyles = [
       'event-primary',
@@ -89,8 +91,8 @@ export class EventDialogComponent {
   }
 
   close(action = this.currentAction) {
-      this.childModal.hide();
-      this.closed.emit({event: this.event, action: action, dialog: 'event'});
+    this.childModal.hide();
+    this.closed.emit({event: this.event, action: action, dialog: 'event'});
   }
 
   ok() {
@@ -125,5 +127,13 @@ export class EventDialogComponent {
         }
       }
     });
+  }
+
+  titleTouchedFn() {
+    this.titleTouched = true;
+  }
+
+  titleValidateFn(): boolean {
+    return this.titleTouched === true && this.event.title === '' ? false : true;
   }
 }

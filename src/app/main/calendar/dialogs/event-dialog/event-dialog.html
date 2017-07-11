@@ -12,8 +12,9 @@
                 <form (ngSubmit)="login(form.value)" name="eventForm">
                     <div class="form-group" ngClass="{'has-error': eventForm.title.touched && eventForm.title.invalid}">
                         <label class="control-label">{{'CALENDAR.EVENT_TITLE' | translate}}</label>
-                        <input name="title" [(ngModel)]="event.title" type="text" class="form-control" required [ngModelOptions]="{standalone: true}">
-                        <div class="alert alert-danger" *ngIf="event.title === ''">
+                        <input [(ngModel)]="event.title" type="text" class="form-control" (blur)="titleTouchedFn()" required
+                               [ngModelOptions]="{standalone: true}">
+                        <div class="alert alert-danger" [ngClass]="{'hidden' : titleValidateFn() }">
                           {{'CALENDAR.EVENT_REQUIRED_FIELD' | translate}}
                         </div>
                     </div>
