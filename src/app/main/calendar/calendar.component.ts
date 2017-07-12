@@ -91,9 +91,10 @@ export class CalendarComponent implements OnInit {
   addNewEvent(startDate, endDate) {
     if (!startDate) {
       startDate = moment();
-      endDate = moment().add(1, 'd');
+      endDate = moment();
     }
-    this.showEventDialog({start: startDate, end: endDate}, 'add');
+    this.showEventDialog(startDate.format('YYYY-MM-DD') === endDate.add(-1, 'd').format('YYYY-MM-DD') ?
+      {start: startDate, end: endDate, allDay: true} : {start: startDate, end: endDate, allDay: false}, 'add');
   }
 
   editCurrentEvent(event) {

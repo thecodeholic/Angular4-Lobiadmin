@@ -12,18 +12,19 @@
                 <form (ngSubmit)="login(form.value)" name="eventForm">
                     <div class="form-group" ngClass="{'has-error': eventForm.title.touched && eventForm.title.invalid}">
                         <label class="control-label">{{'CALENDAR.EVENT_TITLE' | translate}}</label>
-                        <input [(ngModel)]="event.title" type="text" class="form-control" (blur)="titleTouchedFn()" required
+                        <input [(ngModel)]="this.event.title" type="text" class="form-control" (blur)="titleTouchedFn()" required
                                [ngModelOptions]="{standalone: true}">
-                        <div class="alert alert-danger" [ngClass]="{'hidden' : titleValidateFn() }">
+                        <div class="alert alert-danger" [ngClass]="{'hidden' : !(titleTouched === true && this.event.title === '') }">
                           {{'CALENDAR.EVENT_REQUIRED_FIELD' | translate}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label">{{'CALENDAR.EVENT_DATE' | translate}}</label>
-                        <input class="orm-control date-picker form-control" type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event)" />
+                        <input class="orm-control date-picker form-control single" type="text" name="daterangeInput"
+                               daterangepicker [options]="options" options="{singleDatePicker: true}"  (selected)="selectedDate($event)" />
                         <label class="checkbox lobicheck">
-                            <input type="checkbox" name="allday" [(ngModel)]="event.allDay"><i></i> {{'CALENDAR.ALL_DAY' |
+                            <input id="allDay" type="checkbox" name="allDay" [(ngModel)]="this.event.allDay" (click)="checkAllDayState()"><i></i> {{'CALENDAR.ALL_DAY' |
                             translate}}
                         </label>
                     </div>
@@ -31,9 +32,9 @@
                     <div class="form-group">
                         <label class="control-label">{{'CALENDAR.EVENT_STYLE' | translate}}</label>
                         <div class="btn-group btn-group-justified btn-group-event-style" data-toggle="buttons">
-                            <label *ngFor="let style of eventStyles" class="btn {{style}} text-white">
-                                <input type="radio" [(ngModel)]="event.className[0]" value="{{style}}" name="event-style" (change)="event.className[0] = style">
-                                <i class="fa fa-check" [hidden]="!(event.className[0] == style)"></i>
+                            <label *ngFor="let style of this.eventStyles" class="btn {{style}} text-white">
+                                <input type="radio" [(ngModel)]="this.event.className[0]" value="{{style}}" name="event-style" (change)="this.event.className[0] = style">
+                                <i class="fa fa-check" [hidden]="!(this.event.className[0] == style)"></i>
                             </label>
                         </div>
                     </div>
@@ -41,11 +42,11 @@
 
                     <div class="form-group">
                         <label class="control-label">{{'CALENDAR.EVENT_DESC' | translate}}</label>
-                        <textarea rows="3" class="form-control" name="desc" [(ngModel)]="event.description"></textarea>
+                        <textarea rows="3" class="form-control" name="desc" [(ngModel)]="this.event.description"></textarea>
                     </div>
 
-                    <ul class="list-group" *ngIf="event && event.files.length > 0">
-                        <li class="list-group-item calendar-attachment" *ngFor="let file of event.files">
+                    <ul class="list-group" *ngIf="this.event && this.event.files.length > 0">
+                        <li class="list-group-item calendar-attachment" *ngFor="let file of this.event.files">
                             <span class="attachment-icon"><i class="fa fa-file"></i></span>&nbsp;
                             <a href="javascript:void(0)" class="attachment-name">{{file.name}}</a>
                             <div class="pull-right display-inline-block">
@@ -67,7 +68,7 @@
                     <i class="fa fa-trash"></i> {{'CALENDAR.EVENT_DELETE' | translate}}
                 </button>
                 <button class="btn btn-pretty btn-primary" type="button" (click)="ok()"
-                        [disabled]="event.title === ''">{{'CALENDAR.EVENT_OK' | translate}}
+                        [disabled]="this.event.title === ''">{{'CALENDAR.EVENT_OK' | translate}}
                 </button>
                 <button class="btn btn-pretty btn-default" type="button" (click)="cancel()">
                     {{'CALENDAR.EVENT_CANCEL' | translate}}

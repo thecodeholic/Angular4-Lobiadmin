@@ -3,8 +3,8 @@
  */
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DaterangePickerComponent} from 'ng2-daterangepicker';
+import {EventStruct} from '../../components/event.component';
 
 declare const Lobibox: any;
 
@@ -12,7 +12,8 @@ declare const Lobibox: any;
 @Component({
   selector: 'app-event-modal',
   templateUrl: './event-dialog.html',
-  styleUrls: ['./event-dialog.less']
+  styleUrls: ['./event-dialog.less'],
+  providers: [EventStruct]
 })
 export class EventDialogComponent {
   @ViewChild('childModal') public childModal: ModalDirective;
@@ -24,35 +25,22 @@ export class EventDialogComponent {
 
   // form
   public titleTouched: boolean;
-  public Event: any;
   public currentAction: string;
-  isEdit: boolean;
-  eventStyles = [];
-  eventDate: any;
-  public event = {
-    id: null,
-    className: ['event-primary'],
-    start: null,
-    end: null,
-    allDay: false,
-    title: '',
-    files: []
-  };
+  private eventStyles = [];
+  public event = null;
+
+  constructor(public Event: EventStruct) {
+    this.event = this.Event.event;
+  }
+
 
   public selectedDate(value: any) {
-    this.eventDate.startDate = value.start;
-    this.eventDate.endDate = value.end;
     this.event.start = value.start;
     this.event.end = value.end;
-    console.log(this.event);
   }
 
-  constructor(fb: FormBuilder) {
-  }
+  init(ev, action) {
 
-  init(Event, action) {
-    this.titleTouched = false;
-    this.isEdit = Event && !!Event.title;
     this.eventStyles = [
       'event-primary',
       'event-success',
@@ -64,30 +52,41 @@ export class EventDialogComponent {
       'event-purple',
       'event-pink'
     ];
-    this.eventDate = {startDate: Event.start, endDate: Event.end};
-    this.event = this.isEdit ? Event : {
-      id: Math.round(Math.random() * 1000000),
-      className: ['event-primary'],
-      start: this.eventDate.startDate,
-      end: this.eventDate.endDate,
-      allDay: false,
-      title: ''
-    };
-    this.picker.datePicker.timePicker = true;
-    this.picker.datePicker.autoUpdateInput = true;
-    this.picker.datePicker.locale.format = 'YYYY-MM-DD h:mm A';
-    this.picker.datePicker.setStartDate(this.eventDate.startDate);
-    this.picker.datePicker.setEndDate(this.eventDate.endDate);
-    this.event.files = this.event.files || [];
+
+
+    if (action === 'edit') {
+      this.titleTouched = true;
+      this.event = {
+        id: ev.id,
+        className: ev.className,
+        start: ev.start,
+        end: ev.end,
+        allDay: ev.allDay,
+        title: ev.title,
+        description: ev.description,
+        files: ev.files || []
+      };
+    } else {
+      this.titleTouched = false;
+      this.event = {
+        id: Math.round(Math.random() * 1000000),
+        className: ['event-primary'],
+        start: ev.start,
+        end: ev.end,
+        allDay: ev.allDay,
+        title: '',
+        description: '',
+        files: []
+      };
+    }
 
     this.currentAction = action;
-    console.log('event-dialog init');
   }
 
-  open(event, action) {
-    this.init(event, action);
+  open(ev, action) {
+    this.init(ev, action);
     this.childModal.show();
-    console.log('open');
+    this.checkAllDayState();
   }
 
   close(action = this.currentAction) {
@@ -103,9 +102,9 @@ export class EventDialogComponent {
     this.childModal.hide();
   }
 
-  addAttachments(event) {
-    console.log(event);
-    const inputEl = event.target;
+  addAttachments(e) {
+    console.log(e);
+    const inputEl = e.target;
     for (let i = 0; i < inputEl.files.length; i++) {
       this.event.files.push(inputEl.files[i]);
     }
@@ -133,7 +132,30 @@ export class EventDialogComponent {
     this.titleTouched = true;
   }
 
-  titleValidateFn(): boolean {
-    return this.titleTouched === true && this.event.title === '' ? false : true;
+  checkAllDayState() {
+
+    console.log(this.event.allDay);
+    console.log(this.picker.datePicker.singleDatePicker);
+
+    this.picker.datePicker.autoUpdateInput = true;
+
+
+    if (this.event.allDay === true) {
+      console.log('one day event', this.event.start, this.event.end);
+
+      this.picker.datePicker.timePicker = false;
+      this.picker.datePicker.singleDatePicker = true;
+      this.picker.datePicker.locale.format = 'YYYY-MM-DD';
+      this.picker.datePicker.setStartDate(this.event.start);
+      this.picker.datePicker.setEndDate(this.event.end);
+    } else {
+      console.log('long event', this.event.start, this.event.end);
+
+      this.picker.datePicker.timePicker = false;
+      this.picker.datePicker.singleDatePicker = false;
+      this.picker.datePicker.locale.format = 'YYYY-MM-DD';
+      this.picker.datePicker.setStartDate(this.event.start);
+      this.picker.datePicker.setEndDate(this.event.end);
+    }
   }
 }

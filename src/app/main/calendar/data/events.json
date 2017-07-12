@@ -3,14 +3,16 @@
     "id": 1,
     "title": "All Day Event",
     "start": "2016-05-01",
-    "end": "2017-05-01"
+    "end": "2017-05-01",
+    "allDay": false
   },
   {
     "id": 2,
     "title": "Long Event",
     "start": "2017-05-07",
     "end": "2017-05-10",
-    "className": "event-success"
+    "className": "event-success",
+    "allDay": false
   },
   {
     "id": 3,
@@ -18,48 +20,62 @@
     "start": "2017-05-11",
     "end": "2017-05-13",
     "description": "Description will held in hole",
-    "className": "event-purple"
+    "className": "event-purple",
+    "allDay": false
   },
   {
     "id": 4,
     "title": "Meeting",
     "start": "2017-05-12T10:30:00",
     "end": "2017-05-12T12:30:00",
-    "className": "event-info"
+    "className": "event-info",
+    "allDay": true
   },
   {
     "id": 5,
     "title": "Lunch",
     "start": "2017-05-8T12:00:00",
-    "description": "The lunch will be at corner cafe"
+    "end": "2017-05-8T12:00:00",
+    "description": "The lunch will be at corner cafe",
+    "allDay": true
   },
   {
     "id": 6,
     "title": "Meeting",
     "start": "2017-05-26T14:30:00",
-    "className": "event-purple"
+    "end": "2017-05-26T14:30:00",
+    "className": "event-purple",
+    "allDay": true
   },
   {
     "id": 7,
     "title": "Happy Hour",
-    "start": "2017-05-11T17:30:00"
+    "start": "2017-05-11T17:30:00",
+    "end": "2017-05-11T17:30:00",
+    "allDay": true
   },
   {
     "id": 8,
     "title": "Dinner",
     "start": "2017-05-23T20:00:00",
-    "className": "event-warning"
+    "end": "2017-05-23T20:00:00",
+    "className": "event-warning",
+    "allDay": true
   },
   {
     "id": 9,
     "title": "Birthday Party",
     "start": "2017-05-13T07:00:00",
-    "className": "event-warning"
+    "end": "2017-05-13T07:00:00",
+    "className": "event-warning",
+    "allDay": true
   },
   {
     "id": 10,
     "title": "Click for Google",
     "url": "http://google.com/",
-    "start": "2017-05-28"
+    "start": "2017-05-28",
+    "end": "2017-05-28",
+    "allDay": true
   }
 ]
