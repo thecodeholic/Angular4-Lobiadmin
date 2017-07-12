@@ -80,13 +80,19 @@ export class EventDialogComponent {
       };
     }
 
+    this.picker.datePicker.autoUpdateInput = true;
+    this.picker.datePicker.singleDatePicker = false;
+    this.picker.datePicker.locale.format = 'YYYY-MM-DD';
+    this.picker.datePicker.setStartDate(this.event.start);
+    this.picker.datePicker.setEndDate(this.event.end);
+    this.checkAllDayState();
+
     this.currentAction = action;
   }
 
   open(ev, action) {
     this.init(ev, action);
     this.childModal.show();
-    this.checkAllDayState();
   }
 
   close(action = this.currentAction) {
@@ -133,29 +139,10 @@ export class EventDialogComponent {
   }
 
   checkAllDayState() {
-
-    console.log(this.event.allDay);
-    console.log(this.picker.datePicker.singleDatePicker);
-
-    this.picker.datePicker.autoUpdateInput = true;
-
-
     if (this.event.allDay === true) {
-      console.log('one day event', this.event.start, this.event.end);
-
-      this.picker.datePicker.timePicker = false;
-      this.picker.datePicker.singleDatePicker = true;
-      this.picker.datePicker.locale.format = 'YYYY-MM-DD';
-      this.picker.datePicker.setStartDate(this.event.start);
-      this.picker.datePicker.setEndDate(this.event.end);
+      this.picker.datePicker.timePicker = true;
     } else {
-      console.log('long event', this.event.start, this.event.end);
-
       this.picker.datePicker.timePicker = false;
-      this.picker.datePicker.singleDatePicker = false;
-      this.picker.datePicker.locale.format = 'YYYY-MM-DD';
-      this.picker.datePicker.setStartDate(this.event.start);
-      this.picker.datePicker.setEndDate(this.event.end);
     }
   }
 }
