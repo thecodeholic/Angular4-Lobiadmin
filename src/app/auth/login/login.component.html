@@ -2,159 +2,169 @@
     <div class="login-wrapper fadeInDown animated">
             <form name="loginForm"
                   class="lobi-form login-form"
-                  ng-class="{'visible': vm.showForm === 'login'}"
+                  [ngClass]="{'visible': formType === 'login'}"
                   novalidate
-                  ng-submit="vm.login()">
+                  [formGroup]="form" (ngSubmit)="login(form.value)" >
                 <div class="login-header">
-                    {{'LOGIN.LOGIN_TO_YOUR_ACCOUNT'}}
+                    {{'LOGIN.LOGIN_TO_YOUR_ACCOUNT' | translate }}
                 </div>
                 <div class="login-body no-padding">
                     <fieldset>
-                        <div class="form-group" ng-class="{'has-error': loginForm.username.$touched && loginForm.username.$invalid}">
-                            <label>{{'LOGIN.USERNAME'}}</label>
+                        <div class="form-group" [ngClass]="{'has-error': (!identity.valid && identity.touched)}">
+                            <label>{{'LOGIN.USERNAME' | translate}}</label>
                             <label class="input">
                                 <span class="input-icon input-icon-prepend fa fa-user"></span>
-                                <input
-                                  type="text"
-                                  name="username"
-                                  ng-model="vm.data.username"
-                                  placeholder="{{'LOGIN.USERNAME'}}"
-                                  required>
-                                <span class="tooltip tooltip-top-left"><i class="fa fa-user text-cyan-dark"></i> {{'LOGIN.PLEASE_ENTER_USERNAME'}}</span>
+                                <input [formControl]="identity" type="text" class="form-control" placeholder="{{'LOGIN.USERNAME' | translate }}" required>
+                                <span class="tooltip tooltip-top-left"><i class="fa fa-user text-cyan-dark"></i> {{'LOGIN.PLEASE_ENTER_USERNAME' | translate}}</span>
                             </label>
-                            <div class="help-block" ng-messages="loginForm.username.$touched && loginForm.username.$error" role="alert" multiple>
-                                <p ng-message="required">{{'LOGIN.USERNAME_REQUIRED'}}</p>
+                            <div class="help-block"  role="alert">
+                                <p [hidden]="(!identity.invalid || !identity.touched)">{{'LOGIN.USERNAME_ERRPR' | translate }}</p>
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{'has-error': loginForm.password.$touched && loginForm.password.$invalid}">
-                            <label>{{'LOGIN.PASSWORD'}}</label>
+                        <div class="form-group" [ngClass]="{'has-error': (!password.valid && password.touched)}">
+                            <label>{{'LOGIN.PASSWORD' | translate}}</label>
                             <label class="input">
                                 <span class="input-icon input-icon-prepend fa fa-key"></span>
-                                <input
-                                  type="password"
-                                  name="password"
-                                  ng-model="vm.data.password"
-                                  placeholder="{{'LOGIN.PASSWORD'}}"
-                                  required>
-                                <span class="tooltip tooltip-top-left"><i class="fa fa-key text-cyan-dark"></i> {{'LOGIN.PLEASE_ENTER_PASSWORD'}}</span>
+                                <input [formControl]="password" type="password" class="form-control" placeholder="{{'LOGIN.PASSWORD' | translate }}" required>
+                                <span class="tooltip tooltip-top-left"><i class="fa fa-key text-cyan-dark"></i> {{'LOGIN.PLEASE_ENTER_PASSWORD' | translate}}</span>
                             </label>
-
-                            <div class="help-block" ng-messages="loginForm.password.$touched && loginForm.password.$error" role="alert" multiple>
-                                <p ng-message="required">{{'LOGIN.PASSWORD_REQUIRED'}}</p>
+                            <div class="help-block"  role="alert">
+                                <p [hidden]="(!password.invalid || !password.touched)">{{'LOGIN.PASSWORD_ERRPR' | translate }}</p>
                             </div>
-                            <button type="button" class="btn-link btn-forgot-password" ng-click="vm.showForm = 'reset'">{{'LOGIN.FORGOT_PASSWORD'}}</button>
+                            <button type="button" class="btn-link btn-forgot-password" (click)="formType = 'reset'">{{'LOGIN.FORGOT_PASSWORD' | translate}}</button>
                         </div>
 
                         <div class="row">
                             <div class="col-xs-8">
                                 <label class="checkbox lobicheck lobicheck-info lobicheck-inversed lobicheck-lg">
-                                    <input type="checkbox" ng-model="vm.data.remember_me">
-                                    <i></i> {{'LOGIN.REMEMBER_ME'}}
+                                    <input type="checkbox" [formControl]="remember_me">
+                                    <i></i> {{'LOGIN.REMEMBER_ME' | translate}}
                                 </label>
                             </div>
                             <div class="col-xs-4">
-                                <button ng-disabled="loginForm.$invalid" type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-log-in"></span> {{'LOGIN.LOGIN'}}</button>
+                                <button [disabled]="!form.valid" type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-log-in"></span> {{'LOGIN.LOGIN' | translate}}</button>
                             </div>
                         </div>
                     </fieldset>
                 </div>
                 <div class="login-footer">
-                    {{'LOGIN.NEW_USER'}}?
-                  <button type="button" class="btn btn-xs btn-info pull-right" ng-click="vm.showForm = 'signup'">{{'LOGIN.SIGNUP'}}</button>
+                    {{'LOGIN.NEW_USER' | translate}}?
+                  <button type="button" class="btn btn-xs btn-info pull-right" (click)="formType = 'signup'">{{'LOGIN.SIGNUP' | translate }}</button>
                 </div>
             </form>
             <!--Sign up form-->
-            <form action class="lobi-form signup-form" ng-class="{'visible': vm.showForm === 'signup'}" ng-submit="vm.signup()">
+            <form action class="lobi-form signup-form" [formGroup] = "signupForm" [ngClass]="{'visible': formType === 'signup'}" (ngSubmit)="signup(signupForm.value)">
                 <div class="login-header">
-                    {{'LOGIN.NEW_USER_SIGN_UP'}}
+                    {{'LOGIN.NEW_USER_SIGN_UP' | translate }}
                 </div>
                 <div class="login-body no-padding">
                     <fieldset>
                         <div class="row">
-                            <div class="col-xxs-12 col-xs-6">
-                                <label>{{'LOGIN.FIRSTNAME'}}</label>
+                            <div class="col-xxs-12 col-xs-6 form-group" [ngClass]="{'has-error': (!firstname.valid && firstname.touched)}">
+                                <label>{{'LOGIN.FIRSTNAME' | translate }}</label>
                                 <label class="input">
                                     <span class="input-icon input-icon-prepend fa fa-user"></span>
-                                    <input type="text" name="firstname" placeholder="{{'LOGIN.FIRSTNAME'}}">
+                                    <input type="text" [formControl]="firstname" placeholder="{{'LOGIN.FIRSTNAME' | translate }}">
                                 </label>
+                                <div class="help-block"  role="alert">
+                                    <p [hidden]="(!firstname.invalid || !firstname.touched)">{{'LOGIN.FIRSTNAME_ERRPR' | translate }}</p>
+                                </div>
                             </div>
-                            <div class="col-xxs-12 col-xs-6">
-                                <label>{{'LOGIN.LASTNAME'}}</label>
+                            <div class="col-xxs-12 col-xs-6 form-group" [ngClass]="{'has-error': (!lastname.valid && lastname.touched)}">
+                                <label>{{'LOGIN.LASTNAME' | translate }}</label>
                                 <label class="input">
                                     <span class="input-icon input-icon-prepend fa fa-user"></span>
-                                    <input type="text" name="lastname" placeholder="{{'LOGIN.LASTNAME'}}">
+                                    <input type="text" [formControl]="lastname" placeholder="{{'LOGIN.LASTNAME' | translate }}">
                                 </label>
+                                <div class="help-block"  role="alert">
+                                    <p [hidden]="(!lastname.invalid || !lastname.touched)">{{'LOGIN.LASTNAME_ERRPR' | translate }}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>{{'LOGIN.USERNAME'}}</label>
+                        <div class="form-group" [ngClass]="{'has-error': (!username.valid && username.touched)}">
+                            <label>{{'LOGIN.USERNAME' | translate }}</label>
                             <label class="input">
                                 <span class="input-icon input-icon-prepend fa fa-user"></span>
-                                <input type="text" name="username" placeholder="{{'LOGIN.USERNAME'}}">
+                                <input type="text" [formControl]="username" placeholder="{{'LOGIN.USERNAME' | translate }}" required>
                             </label>
+                            <div class="help-block"  role="alert">
+                                <p [hidden]="(!username.invalid || !username.touched)">{{'LOGIN.USERNAME_ERRPR' | translate }}</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>{{'LOGIN.EMAIL'}}</label>
+                        <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched)}">
+                            <label>{{'LOGIN.EMAIL' | translate }}</label>
                             <label class="input">
                                 <span class="input-icon input-icon-prepend fa fa-envelope"></span>
-                                <input type="text" name="email" placeholder="{{'LOGIN.EMAIL'}}">
+                                <input type="text" [formControl]="email" placeholder="{{'LOGIN.EMAIL' | translate }}">
                             </label>
+                            <div class="help-block"  role="alert">
+                                <p [hidden]="(!email.invalid || !email.touched)">{{'LOGIN.EMAIL_ERRPR' | translate }}</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>{{'LOGIN.PASSWORD'}}</label>
+                        <div class="form-group" [ngClass]="{'has-error': (!password_reg.valid && password_reg.touched)}">
+                            <label>{{'LOGIN.PASSWORD' | translate }}</label>
                             <label class="input">
                                 <span class="input-icon input-icon-prepend fa fa-key"></span>
-                                <input type="password" name="password" placeholder="{{'LOGIN.PASSWORD'}}">
+                                <input type="password" [formControl]="password_reg" placeholder="{{'LOGIN.PASSWORD' | translate }}">
                             </label>
+                            <div class="help-block"  role="alert">
+                                <p [hidden]="(!password_reg.invalid || !password_reg.touched)">{{'LOGIN.PASSWORD_ERRPR' | translate }}</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>{{'LOGIN.CONFIRM_PASSWORD'}}</label>
+                        <div class="form-group" [ngClass]="{'has-error': (!repeatPassword.valid && repeatPassword.touched)}">
+                            <label>{{'LOGIN.CONFIRM_PASSWORD' | translate }}</label>
                             <label class="input">
                                 <span class="input-icon input-icon-prepend fa fa-key"></span>
-                                <input type="password" name="confirm_password" placeholder="{{'LOGIN.CONFIRM_PASSWORD'}}">
+                                <input type="password" [formControl]="repeatPassword" placeholder="{{'LOGIN.CONFIRM_PASSWORD' | translate }}">
                             </label>
+                            <div class="help-block"  role="alert">
+                                <p [hidden]="(!repeatPassword.invalid || !repeatPassword.touched)">{{'LOGIN.CONFIRM_PASSWORD_ERRPR' | translate }}</p>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-4 col-xs-offset-8">
-                                <button type="submit" class="btn btn-info btn-block">{{'LOGIN.REGISTER'}}</button>
+                                <button [disabled]="!signupForm.valid" type="submit" class="btn btn-info btn-block">{{'LOGIN.REGISTER' | translate }}</button>
                             </div>
                         </div>
                     </fieldset>
                 </div>
                 <div class="login-footer">
-                    {{'LOGIN.DID_YOU_ALREADY_HAVE_ACCOUNT'}}?
-                    <button type="button" class="btn btn-xs btn-info pull-right" ng-click="vm.showForm = 'login'">
-                      {{'LOGIN.SIGNIN'}}
+                    {{'LOGIN.DID_YOU_ALREADY_HAVE_ACCOUNT' | translate }}?
+                    <button type="button" class="btn btn-xs btn-info pull-right" (click)="formType = 'login'">
+                      {{'LOGIN.SIGNIN' | translate }}
                     </button>
                 </div>
             </form>
             <!--Forgot password form-->
-            <form action class="lobi-form pass-forgot-form" ng-class="{'visible': vm.showForm === 'reset'}" ng-submit="vm.signup()">
+            <form action class="lobi-form pass-forgot-form" [formGroup] = "resetForm" [ngClass]="{'visible': formType === 'reset'}" (ngSubmit)="reset(resetForm.value)">
                 <div class="login-header">
-                    {{'LOGIN.FORGOT_YOUR_PASSWORD'}}?
+                    {{'LOGIN.FORGOT_YOUR_PASSWORD' | translate }}?
                 </div>
                 <div class="login-body">
                     <fieldset>
-                        <div class="form-group">
-                            <label>{{'LOGIN.EMAIL_OR_USERNAME'}}</label>
+                        <div class="form-group" [ngClass]="{'has-error': (!identity_reset.valid && identity_reset.touched)}">
+                            <label>{{'LOGIN.EMAIL_OR_USERNAME' | translate }}</label>
                             <label class="input">
                                 <span class="input-icon input-icon-prepend fa fa-envelope"></span>
                                 <span class="input-icon input-icon-append fa fa-user"></span>
-                                <input type="text" name="username" placeholder="{{'LOGIN.EMAIL_OR_USERNAME'}}">
-                                <span class="tooltip tooltip-bottom-right">{{'LOGIN.TYPE_YOUR_EMAIL_OR_USERNAME'}}</span>
+                                <input type="text" [formControl]="identity_reset" placeholder="{{'LOGIN.EMAIL_OR_USERNAME' | translate }}">
+                                <span class="tooltip tooltip-bottom-right">{{'LOGIN.TYPE_YOUR_EMAIL_OR_USERNAME' | translate }}</span>
                             </label>
-                            <button type="button" class="btn-link" ng-click="vm.showForm = 'login'">{{'LOGIN.REMEMBER_YOUR_PASSWORD'}}?</button>
+                            <div class="help-block"  role="alert">
+                                <p [hidden]="(!identity_reset.invalid || !identity_reset.touched)">{{'LOGIN.IDENTITY_ERRPR' | translate }}</p>
+                            </div>
+                            <button type="button" class="btn-link" (click)="formType = 'login'">{{'LOGIN.REMEMBER_YOUR_PASSWORD' | translate }}?</button>
                         </div>
                         <div class="row">
                             <div class="col-xs-12 text-right">
-                                <button type="submit" class="btn btn-info btn-block"><i class="fa fa-refresh"></i> {{'LOGIN.RESTORE_PASSWORD'}}</button>
+                                <button type="submit"  [disabled]="!resetForm.valid" class="btn btn-info btn-block"><i class="fa fa-refresh"></i> {{'LOGIN.RESTORE_PASSWORD' | translate }}</button>
                             </div>
                         </div>
                     </fieldset>
                 </div>
                 <div class="login-footer">
-                    {{'LOGIN.NEW_USER'}}?
-                  <button type="button" class="btn btn-xs btn-info pull-right" ng-click="vm.showForm = 'signup'">{{'LOGIN.SIGNUP'}}</button>
+                    {{'LOGIN.NEW_USER' | translate }}?
+                  <button type="button" class="btn btn-xs btn-info pull-right" (click)="formType = 'signup'">{{'LOGIN.SIGNUP' | translate }}</button>
                 </div>
             </form>
         </div>

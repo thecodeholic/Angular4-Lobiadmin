@@ -1,0 +1,92 @@
+//Author      : @arboshiki
+//LOOP
+@primary : #002a51;
+@success : #28c97b;
+@danger : #d6451d;
+@info : #3989c6;
+@warning : #e2993f;
+@gray : #555555;
+@cyan : #35a5ad;
+@purple : #8328b7;
+@pink : #d125ba;
+
+@colors : primary, success, danger, info, warning, gray, cyan, purple, pink;
+.event-{
+  .for(@colors, {
+    &@{value} {
+      background-color: @@value;
+      border-color: darken(@@value, 5%);
+    }
+  });
+}
+
+
+// LOOPING MIXIN
+.for(@list, @code) {
+  & {
+    .loop(@i:1) when (@i =< length(@list)) {
+      @value: extract(@list, @i);
+      @code();
+      .loop(@i + 1);
+    }
+    .loop();
+  }
+}
+
+.fc-event {
+  border-radius: 0;
+  //height: 24px;
+  //line-height: 24px;
+  .box-shadow(1px 1px 2px rgba(0, 0, 0, 0.4));
+  .fc-title,
+  .fc-time {
+    font-size: 120%;
+  }
+  .fc-description {
+    font-size: 92%;
+    font-style: italic;
+    color: @gray-lighter;
+  }
+}
+
+.fc {
+
+  .fc-widget-header {
+    border: none;
+  }
+
+  .fc-day-header {
+    padding: 6px 10px;
+  }
+}
+
+.fc-day-grid-event {
+  padding: 5px 7px;
+}
+
+.fc-toolbar {
+  .fc-button {
+    background-image: none;
+    .box-shadow(none);
+    &:extend(.btn-icon all);
+    //&:extend(.btn-pretty all);
+
+    border-radius: 0;
+    text-shadow: none;
+    &,
+    &:focus {
+      outline: 0;
+    }
+  }
+  .fc-state-default {
+    &.fc-corner-left {
+      .border-left-radius(3px);
+    }
+    &.fc-corner-right {
+      .border-right-radius(3px);
+    }
+  }
+  .fc-state-active {
+    &:extend(.btn-info.active all);
+  }
+}

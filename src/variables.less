@@ -1,6 +1,11 @@
+//Author     : @arboshiki
+
+@layout-color:                                  @brand-primary;
+
+
 //Brand colors
 @brand-light                                    : darken(#fff, 1%); //#fcfcfc
-@brand-inverse                                  : #363f3f;
+@brand-inverse                                  : #555555;
 @brand-success-lighter                          : lighten(@brand-success, 30%);
 @brand-success-light                            : lighten(@brand-success, 15%);
 @brand-success-dark                             : darken(@brand-success, 10%);
@@ -74,7 +79,7 @@
 
 @menu-width                                     : 220px;
 //navbar
-@navbar-bg                                      : darken(@brand-info, 5%);
+@navbar-bg                                      : @layout-color; // @brand-secondary;
 @navbar-items-color                             : @gray-lighter;
 @navbar-items-hover-bg                          : rgba(0, 0, 0, 0.07);
 @navbar-items-hover-color                       : lighten(@navbar-items-color, 10%);
@@ -84,8 +89,8 @@
 @navbar-brand-width                             : @menu-width - @navbar-menu-toggle-btn-width;
 @navbar-brand-width-mobile                      : 80px;
 @navbar-brand-font-size                         : 22px;
-@navbar-brand-img-source                        : url('assets/img/logo/lobiadmin-logo-text-white-32.png');
-@navbar-brand-img-source-mobile                 : url('assets/img/logo/lobiadmin-logo-48.png');
+@navbar-brand-img-source                        : "";
+@navbar-brand-img-source-mobile                 : "";
 @navbar-user-image-size                         : 40px;
 @navbar-search-input-padding-left               : 10px;
 @navbar-search-form-width                       : 380px;
@@ -122,10 +127,10 @@
 @nav-menu-item-line-height                      : 22px;
 @nav-menu-item-color                            : @menu-color;
 @nav-menu-item-hover-color                      : darken(@nav-menu-item-color, 35%);
-@nav-menu-item-active-color                     : @brand-info;
-@nav-menu-item-active-arrow-color               : @brand-info;
+@nav-menu-item-active-color                     : @layout-color;
+@nav-menu-item-active-arrow-color               : @nav-menu-item-active-color;
 @nav-menu-item-opened-border-right-width        : 3px;
-@nav-menu-item-opened-border-right-color        : @brand-info;
+@nav-menu-item-opened-border-right-color        : @nav-menu-item-active-color;
 
 @nav-menu-item-icon-font-size                   : 16px;
 @nav-menu-submenu-item-icon-font-size           : 14px;
@@ -196,7 +201,7 @@
 //------------------------------------------------------------------------------
 
 @setting-box-top                                : @navbar-height + (@ribbon-height - @setting-box-btn-toggle-size) / 2;
-@setting-box-width                              : 200px;
+@setting-box-width                              : 220px;
 @setting-box-bg                                 : @gray-dark;
 @setting-box-color                              : #FFF;
 @setting-box-min-height                         : 120px;
@@ -258,6 +263,10 @@
 @btn-cyan-color                                 : @gray-lighter;
 @btn-cyan-bg                                    : @brand-cyan;
 @btn-cyan-border                                : darken(@brand-cyan, 7%);
+
+@btn-secondary-color                            : @gray-lighter;
+@btn-secondary-bg                               : @brand-secondary;
+@btn-secondary-border                           : darken(@btn-secondary-bg, 7%);
 
 
 //pretty buttons
@@ -796,7 +805,7 @@
 //------------------------------------------------------------------------------
 
 @error-page-error-code-color                            : #A12929;
-@error-page-error-code-font-size                        : 110px;
+@error-page-error-code-font-size                        : 80px;
 @error-page-error-code-text-shadow                      : 5px 5px 5px rgba(0, 0, 0, 0.5);
 @error-page-error-text-shadow                           : 2px 2px 3px rgba(0, 0, 0, 0.5);
 @error-page-error-subtext-font-size                     : 18px;
@@ -949,6 +958,7 @@
 //------------------------------------------------------------------------------
 
 @chosen-hover-bg                                        : @input-hover-bg;
+@chosen-image-source                                    : "";
 @chosen-min-height                                      : @input-height-base;
 @chosen-multi-chosen-choices-padding-horizontal         : 7px;
 @chosen-multi-chosen-choices-search-choice-color        : #FFF;

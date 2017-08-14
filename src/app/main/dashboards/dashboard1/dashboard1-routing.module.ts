@@ -4,7 +4,7 @@ import {NavigationService} from '../../../core/services/navigation.service';
 import {Dashboard1Component} from './dashboard1.component';
 
 const routes: Routes = [
-  { path: 'pages/dashboard1', component: Dashboard1Component}
+  { path: '', component: Dashboard1Component}
 ];
 
 @NgModule({

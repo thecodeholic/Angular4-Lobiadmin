@@ -20,9 +20,14 @@
       "prefix": "app",
       "styles": [
         "vendor.less",
-        "styles.less"
+        "styles.less",
+        "../node_modules/lobibox/css/lobibox.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/lobibox/js/lobibox.js",
+        "../node_modules/bootstrap-daterangepicker/daterangepicker.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
