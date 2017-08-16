@@ -1,4 +1,9 @@
-@import "../../style";
+@import "~bootstrap/less/variables.less";
+@import "../../../../bootstrap-variables";
+@import "../../../../variables";
+@import "~bootstrap/less/mixins.less";
+@import "../../../core/less/mixins.less";
+@import "~font-awesome/less/variables.less";
 
 .menu {
   display: block;
@@ -194,24 +199,11 @@
 
 @media screen and (max-width: @screen-sm-max) {
   .menu {
-    .menu-collapse-line {
-      display: none;
-    }
+    left: -@menu-width;
   }
-}
 
-@media screen and (min-width: @screen-md-min) {
-  body {
-    &.menu-hidden {
-      #main {
-        margin-left: @menu-partial-hidden-width;
-      }
-      .menu {
-        left: -@menu-width + @menu-partial-hidden-width;
-        &:hover {
-          left: 0;
-        }
-      }
-    }
+  .menu-collapse-line {
+    display: none;
   }
+
 }
