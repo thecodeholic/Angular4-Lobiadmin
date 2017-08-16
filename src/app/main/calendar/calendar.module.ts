@@ -9,7 +9,7 @@ import {Http} from '@angular/http';
 import {CalendarService} from './calendar.service';
 import {MomentModule} from 'angular2-moment';
 import {EventDialogComponent} from './dialogs/event-dialog/event-dialog.component';
-import {ModalBackdropComponent, ModalModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import {DragDialogComponent} from './dialogs/drag-dialog/drag-dialog.component';
