@@ -31,7 +31,7 @@
     "lobibox": "^1.0.0",
     "moment": "^2.18.1",
     "ng2-daterangepicker": "^2.0.7",
-    "ngx-bootstrap": "^1.6.5",
+    "ngx-bootstrap": "^1.8.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
