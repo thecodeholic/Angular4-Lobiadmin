@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {NavigationItem} from './navigation-item';
+import {NavigationService} from './navigation.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  menuItems: Array<NavigationItem> = [];
+
+  constructor(service: NavigationService ) {
+    this.menuItems = service.getNavigationItems();
+  }
 
   ngOnInit() {
   }
