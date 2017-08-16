@@ -29,6 +29,8 @@ export class MainRoutingModule {
   constructor(service: NavigationService) {
 
     service.saveItem('main.dashboard', new NavigationItem("Dashboard 1", "/main/dashboard1", "fa fa-dashboard", 1));
-    service.saveItem('main.calendar', new NavigationItem("Calendar", "/main/calendar", "fa fa-calendar", 10))
+    service.saveItem('main.calendar', new NavigationItem("Calendar", "/main/calendar", "fa fa-calendar", 10));
+
+    service.saveQuickLaunchItem('main.calendar', new NavigationItem("Calendar", "/main/calendar", "fa fa-calendar", 10));
   }
 }

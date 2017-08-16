@@ -15,3 +15,4 @@ import {NavigationService} from './components/navigation/navigation.service';
 })
 export class CoreModule {
 }
+

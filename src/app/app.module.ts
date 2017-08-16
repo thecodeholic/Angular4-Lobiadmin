@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {Http, HttpModule, RequestOptions, XHRBackend} from '@angular/http';
 
 import {AppComponent} from './app.component';
-import {BsDropdownModule, ModalBackdropComponent, ModalModule} from 'ngx-bootstrap';
+import {BsDropdownModule, ModalBackdropComponent, ModalModule, TooltipModule} from 'ngx-bootstrap';
 import {CoreModule} from './core/core.module';
 import {AppRoutingModule} from './app-routing.module';
 import {MainModule} from './main/main.module';
@@ -37,6 +37,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
         deps: [Http]
       }
     }),
+    TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     CoreModule,
     MainModule,

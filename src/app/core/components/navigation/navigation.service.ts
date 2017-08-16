@@ -8,13 +8,20 @@ import {NavigationItem} from './navigation-item';
 @Injectable()
 export class NavigationService {
 
-  showMenuItemIndex: Boolean;
+  showMenuItemIndex: boolean;
 
   private navigationItems: Array<NavigationItem> = [];
 
-  constructor() {
+  private quickLaunchItems: Array<NavigationItem> = [];
+
+
+  public saveQuickLaunchItem(key, item: NavigationItem){
+    this.quickLaunchItems.push(item);
   }
 
+  public getQuickLaunchItems(){
+    return this.quickLaunchItems;
+  }
 
   public setShowMenuItemIndex(show) {
     this.showMenuItemIndex = show;
@@ -43,13 +50,13 @@ export class NavigationService {
     }
   }
 
-  sortByWeight() {
+  private sortByWeight() {
     this.navigationItems.sort(function (item1, item2) {
       return item1.weight - item2.weight;
     });
   }
 
-  generateIndices() {
+  private generateIndices() {
     let index = 0;
     this.navigationItems.forEach(item => {
       if (!item.group && (typeof  item.showIndex !== 'undefined' && item.showIndex || typeof item.showIndex === 'undefined' && this.showMenuItemIndex)) {
@@ -59,7 +66,7 @@ export class NavigationService {
     });
   }
 
-  findItemByKeyOrCreate(key: string) {
+  private findItemByKeyOrCreate(key: string) {
     let finalItem = null;
 
     for (let key in this.navigationItems) {
@@ -79,7 +86,7 @@ export class NavigationService {
     return finalItem;
   }
 
-  getItemByKey(key) {
+  private getItemByKey(key) {
     let finalItem = null;
 
     this.navigationItems.forEach(item => {

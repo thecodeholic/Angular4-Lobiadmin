@@ -9,10 +9,14 @@ import {NavigationService} from './navigation.service';
 })
 export class NavigationComponent implements OnInit {
 
+  showMenuItemIndex: boolean;
   menuItems: Array<NavigationItem> = [];
+  quickLaunchItems: Array<NavigationItem> = [];
 
   constructor(service: NavigationService ) {
+    this.showMenuItemIndex = service.showMenuItemIndex;
     this.menuItems = service.getNavigationItems();
+    this.quickLaunchItems = service.getQuickLaunchItems();
   }
 
   ngOnInit() {
